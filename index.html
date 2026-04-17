@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering the Loop — British Council Schools Annual Event 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & custom properties ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0D1B2A;
+      --navy-mid:   #112030;
+      --navy-card:  #162535;
+      --navy-dark:  #091522;
+      --gold:       #C8952A;
+      --gold-hi:    #daa63c;
+      --gold-dim:   rgba(200,149,42,.12);
+      --gold-border:rgba(200,149,42,.28);
+      --white:      #ffffff;
+      --text-2:     rgba(255,255,255,.72);
+      --text-3:     rgba(255,255,255,.44);
+      --border:     rgba(200,149,42,.18);
+      --nav-h:      60px;
+      --font:       'Inter', system-ui, -apple-system, sans-serif;
+      --mono:       'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;
+      --radius:     10px;
+      --max-w:      1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 1.5rem 5rem;
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(200,149,42,.07) 0%, transparent 100%),
+        radial-gradient(ellipse 50% 45% at 85% 20%, rgba(200,149,42,.055) 0%, transparent 100%),
+        var(--navy-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg,  transparent, transparent 59px, rgba(200,149,42,.025) 59px, rgba(200,149,42,.025) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(200,149,42,.025) 59px, rgba(200,149,42,.025) 60px);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -.025em;
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 .accent { color: var(--gold); }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 400;
+      color: var(--text-2);
+      max-width: 660px;
+      margin: 0 auto 1.75rem;
+      position: relative;
+    }
+
+    .hero-presenter {
+      font-size: .82rem;
+      color: var(--text-3);
+      letter-spacing: .04em;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .hero-presenter strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* PLAN → CREATE → ASSESS pills */
+    .loop-pills {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+    }
+
+    .pill {
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .42rem 1.15rem;
+      border-radius: 100px;
+    }
+
+    .pill-arrow {
+      color: var(--gold);
+      font-size: 1.1rem;
+      opacity: .7;
+      line-height: 1;
+    }
+
+    /* ── Sticky nav ─────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      background: rgba(9,21,34,.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+      letter-spacing: -.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: .2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: .38rem .78rem;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .025em;
+      color: var(--text-2);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color .18s, background .18s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    /* ── Section scaffolding ────────────────────────────────────── */
+    .section {
+      padding: 5.5rem 1.5rem;
+      scroll-margin-top: var(--nav-h);
+    }
+
+    .section-alt { background: var(--navy-mid); }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.022em;
+      line-height: 1.1;
+      margin-bottom: .7rem;
+    }
+
+    .section-sub {
+      color: var(--text-2);
+      font-size: .97rem;
+      max-width: 580px;
+      margin-bottom: 3rem;
+      line-height: 1.65;
+    }
+
+    .gold-rule {
+      width: 44px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 2.25rem;
+    }
+
+    /* ── Prompt cards ───────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .prompt-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+      transition: border-color .2s;
+    }
+
+    .prompt-card:hover { border-color: rgba(200,149,42,.45); }
+
+    .card-phase {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .card-label {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.4;
+    }
+
+    /* code-style prompt box */
+    .prompt-box {
+      flex: 1;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.055);
+      border-radius: 7px;
+      padding: 1rem 1.1rem;
+      font-family: var(--mono);
+      font-size: .76rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,.84);
+      white-space: pre-wrap;
+      word-break: break-word;
+      user-select: text;
+    }
+
+    /* copy button */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--font);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .025em;
+      padding: .58rem 1.2rem;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background .18s, color .18s, border-color .18s;
+    }
+
+    .copy-btn:hover { background: var(--gold-dim); }
+
+    .copy-btn.copied {
+      border-color: #3bdb7e;
+      color: #3bdb7e;
+      background: rgba(59,219,126,.1);
+    }
+
+    .copy-btn svg { flex-shrink: 0; }
+
+    /* ── Wokwi section ──────────────────────────────────────────── */
+    .wokwi-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--navy-card);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 3rem 2.25rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .wokwi-placeholder {
+      width: 100%;
+      max-width: 460px;
+      height: 190px;
+      border: 2px dashed rgba(200,149,42,.35);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .65rem;
+      color: var(--text-3);
+    }
+
+    .wokwi-placeholder .sim-icon {
+      font-size: 2.6rem;
+      line-height: 1;
+    }
+
+    .wokwi-placeholder p {
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-family: var(--font);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      padding: .9rem 2.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background .18s, transform .15s;
+    }
+
+    .btn-gold:hover { background: var(--gold-hi); transform: translateY(-1px); }
+
+    .wokwi-note {
+      font-size: .78rem;
+      color: var(--text-3);
+      max-width: 360px;
+    }
+
+    /* ── Rubric table ───────────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .875rem;
+    }
+
+    thead { background: rgba(200,149,42,.1); }
+
+    thead th {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    thead th:first-child { min-width: 155px; }
+
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,.046); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,.018); }
+
+    tbody td {
+      padding: 1rem 1.25rem;
+      vertical-align: top;
+      line-height: 1.6;
+      color: rgba(255,255,255,.8);
+    }
+
+    tbody td:first-child {
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* range column headers colour coding */
+    .col-low  { color: #e06b6b !important; }
+    .col-mid  { color: #e0c46b !important; }
+    .col-high { color: #6be0a0 !important; }
+
+    .callout {
+      background: rgba(200,149,42,.09);
+      border: 1.5px solid rgba(200,149,42,.32);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      font-size: .9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.82);
+    }
+
+    .callout strong { color: var(--gold); }
+
+    /* ── Tools section ──────────────────────────────────────────── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color .2s;
+    }
+
+    .tool-card:hover { border-color: rgba(200,149,42,.45); }
+
+    .tool-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .tool-card > p {
+      font-size: .875rem;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    .tool-textarea {
+      width: 100%;
+      height: 200px;
+      background: rgba(0,0,0,.32);
+      border: 1.5px solid var(--gold-border);
+      border-radius: 7px;
+      color: rgba(255,255,255,.82);
+      font-family: var(--mono);
+      font-size: .76rem;
+      line-height: 1.75;
+      padding: 1rem 1.1rem;
+      resize: none;
+      overflow-y: auto;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+      flex: 1;
+    }
+
+    .feature-list li {
+      font-size: .85rem;
+      color: var(--text-2);
+      display: flex;
+      align-items: baseline;
+      gap: .55rem;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--font);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .025em;
+      padding: .65rem 1.4rem;
+      border-radius: 7px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .18s;
+    }
+
+    .btn-outline:hover { background: var(--gold-dim); }
+
+    /* ── About ──────────────────────────────────────────────────── */
+    #about { text-align: center; }
+
+    .about-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: .04em;
+      margin: 0 auto 1.5rem;
+    }
+
+    .about-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -.015em;
+      margin-bottom: .3rem;
+    }
+
+    .about-role {
+      font-size: .85rem;
+      color: var(--text-2);
+      margin-bottom: 1.1rem;
+    }
+
+    .about-bio {
+      font-size: .95rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .about-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--text-2);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 500;
+      padding: .52rem 1rem;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,.09);
+      transition: color .18s, border-color .18s, background .18s;
+    }
+
+    .about-link:hover {
+      color: var(--gold);
+      border-color: var(--gold-border);
+      background: var(--gold-dim);
+    }
+
+    .about-link svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy-dark);
+      border-top: 1px solid var(--border);
+      padding: 2.25rem 1.5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: .78rem;
+      color: var(--text-3);
+      letter-spacing: .04em;
+    }
+
+    footer strong { color: var(--gold); font-weight: 600; }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .tools-grid { grid-template-columns: 1fr; }
+
+      .nav-logo { display: none; }
+
+      .nav-links a { padding: .38rem .55rem; font-size: .73rem; }
+
+      .section { padding: 3.5rem 1.25rem; }
+
+      .wokwi-card { padding: 2rem 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links a { padding: .38rem .4rem; font-size: .7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<header class="hero">
+  <p class="hero-eyebrow">British Council Schools Annual Event 2026</p>
+  <h1>Mastering the <span class="accent">Loop</span></h1>
+  <p class="hero-subtitle">Using AI to Plan, Create, and Assess in a Bilingual STEM Classroom</p>
+  <p class="hero-presenter">
+    <strong>Andrés Forero</strong> &nbsp;·&nbsp; Marymount Medellín &nbsp;·&nbsp; British Council Schools Annual Event 2026
+  </p>
+  <div class="loop-pills" aria-label="Workshop phases">
+    <div class="pill">Plan</div>
+    <span class="pill-arrow" aria-hidden="true">→</span>
+    <div class="pill">Create</div>
+    <span class="pill-arrow" aria-hidden="true">→</span>
+    <div class="pill">Assess</div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════
+     STICKY NAV
+════════════════════════════════════════════════ -->
+<nav class="nav" aria-label="Page sections">
+  <div class="nav-inner">
+    <span class="nav-logo">Mastering the Loop</span>
+    <ul class="nav-links">
+      <li><a href="#prompts">Prompts</a></li>
+      <li><a href="#wokwi">Wokwi</a></li>
+      <li><a href="#rubric">Rubric</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 1 — THE 3 PROMPTS
+════════════════════════════════════════════════ -->
+<section class="section" id="prompts">
+  <div class="container">
+    <p class="section-eyebrow">Section 1</p>
+    <h2 class="section-title">The 3 Prompts</h2>
+    <p class="section-sub">Three precision-engineered prompts that drive the full Plan → Create → Assess loop. Copy each one directly into your AI tool of choice.</p>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: Planning -->
+      <div class="prompt-card">
+        <div>
+          <p class="card-phase">Phase 1</p>
+          <p class="card-label">🏗️ The Architect — Lesson Planning</p>
+        </div>
+        <div class="prompt-box" id="prompt1">You are an IGCSE 0445 Design and Technology teacher at a bilingual Cambridge school in Colombia. Students are Grade 10, fluent English speakers. Generate a 60-minute lesson plan for Logic Gates (AND, OR, NOT) using a traffic light as the real-world example, aligned to Cambridge IGCSE 0445 syllabus objective 4.4. Include a technical vocabulary list of 10 key terms with precise definitions suitable for exam responses.</div>
+        <button class="copy-btn" onclick="copyById(this,'prompt1')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Prompt
+        </button>
+      </div>
+
+      <!-- Card 2: Coding -->
+      <div class="prompt-card">
+        <div>
+          <p class="card-phase">Phase 2</p>
+          <p class="card-label">🔧 The Builder — Student Activity</p>
+        </div>
+        <div class="prompt-box" id="prompt2">Write C++ code for an ESP32 on Wokwi that simulates a pedestrian traffic light. The normal cycle is: red for 10 seconds, green for 8 seconds, yellow for 3 seconds. When the pedestrian button is pressed during the red phase, activate a pedestrian green signal for 6 seconds before resuming the normal cycle. Add comments in plain English explaining what each section does.</div>
+        <button class="copy-btn" onclick="copyById(this,'prompt2')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Prompt
+        </button>
+      </div>
+
+      <!-- Card 3: Grading -->
+      <div class="prompt-card">
+        <div>
+          <p class="card-phase">Phase 3</p>
+          <p class="card-label">📋 The Evaluator — AI Co-Grading</p>
+        </div>
+        <div class="prompt-box" id="prompt3">You are a Design and Technology teacher using the rubric below to assess a student's work. For each criterion, state the grade using the scale provided (1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4) and explain specifically what is missing and how the student could improve to reach a higher level. [Paste your rubric here] [Paste student response here]</div>
+        <button class="copy-btn" onclick="copyById(this,'prompt3')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Prompt
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 2 — WOKWI SIMULATION
+════════════════════════════════════════════════ -->
+<section class="section section-alt" id="wokwi">
+  <div class="container">
+    <p class="section-eyebrow">Section 2</p>
+    <h2 class="section-title">Wokwi Simulation</h2>
+    <p class="section-sub">A pre-built ESP32 circuit in your browser — no hardware required. Paste the AI-generated code and watch it run in real time.</p>
+
+    <div class="wokwi-card">
+      <div class="wokwi-placeholder" role="img" aria-label="Traffic light simulation preview">
+        <div class="sim-icon" aria-hidden="true">🚦</div>
+        <p>Traffic Light Simulation</p>
+      </div>
+      <a href="#" class="btn-gold">Open Wokwi Simulation →</a>
+      <p class="wokwi-note">Pre-built ESP32 traffic light circuit — hardware wired, just add your code.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 3 — THE RUBRIC
+════════════════════════════════════════════════ -->
+<section class="section" id="rubric">
+  <div class="container">
+    <p class="section-eyebrow">Section 3</p>
+    <h2 class="section-title">The Rubric</h2>
+    <p class="section-sub" style="margin-bottom:.4rem;">Assessment Rubric — Traffic Light System</p>
+    <p style="color:var(--text-3);font-size:.82rem;margin-bottom:2.5rem;">Generated during the workshop using your school's grading scale</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="col-low">1 – 1.7</th>
+            <th class="col-mid">2 – 2.7</th>
+            <th class="col-high">3 – 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>System Description</td>
+            <td>Vague or incomplete description of how the system behaves</td>
+            <td>Mostly clear description with some gaps in precision</td>
+            <td>Precise, complete description referencing all conditions and timing</td>
+          </tr>
+          <tr>
+            <td>Justification</td>
+            <td>No reasoning given for design decisions</td>
+            <td>Some reasoning present but not linked to requirements</td>
+            <td>Fully justified with clear reference to system function and specification</td>
+          </tr>
+          <tr>
+            <td>Testing Evidence</td>
+            <td>No testing mentioned</td>
+            <td>Basic testing described ("it worked")</td>
+            <td>Systematic testing described with specific conditions and results</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      💡 <strong>Adapt this rubric:</strong> replace the grading scale and criteria with your own subject's requirements. The AI prompt that generated this rubric is in Section 3.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 4 — BONUS TOOLS
+════════════════════════════════════════════════ -->
+<section class="section section-alt" id="tools">
+  <div class="container">
+    <p class="section-eyebrow">Section 4</p>
+    <h2 class="section-title">Bonus Tools</h2>
+    <p class="section-sub">Two tools from Andrés's daily teaching practice — shared openly for the workshop.</p>
+
+    <div class="tools-grid">
+
+      <!-- Tool A: Webpage Generator -->
+      <div class="tool-card">
+        <h3>Webpage Generator Prompt</h3>
+        <p>The prompt Andrés uses to generate interactive class websites from a lesson plan PDF. Version 3.0 — includes dark mode, dyslexia toggle, differentiated difficulty tabs, gamification, and localStorage progress saving.</p>
+        <textarea class="tool-textarea" id="tool-a" readonly>This is a mega-prompt for generating interactive class webpages. Attach your lesson plan (PDF or DOCX) to your AI tool along with this prompt. The AI will generate a complete single-file HTML interactive webpage with: dark/light mode toggle, dyslexia-friendly mode, differentiated difficulty tabs (Basic/Intermediate/Advanced), gamified exercises with points, concept checking questions, vocabulary section with search, localStorage progress saving, and a full wrap-up activity. Full prompt available in the workshop resources.</textarea>
+        <button class="copy-btn" onclick="copyTextarea(this,'tool-a')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Description
+        </button>
+      </div>
+
+      <!-- Tool B: AI Exam Grader -->
+      <div class="tool-card">
+        <h3>AI Exam Grading Tool</h3>
+        <p>Built with Google Apps Script + ChatGPT API. Students take tiered exams (Sets A/B/C with different grade ceilings). Open-ended questions are graded by AI. Results go automatically to Google Sheets.</p>
+        <ul class="feature-list">
+          <li>Tiered difficulty sets</li>
+          <li>AI grades open questions</li>
+          <li>Auto-save every 5 seconds</li>
+          <li>Tab-switch detection</li>
+          <li>Results to Google Sheets</li>
+        </ul>
+        <a href="#" class="btn-outline">View Example Exam →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SECTION 5 — ABOUT
+════════════════════════════════════════════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="avatar" aria-label="Andrés Forero initials">AF</div>
+      <h2 class="about-name">Andrés Forero</h2>
+      <p class="about-role">Head of Design &amp; Technology, Marymount Medellín</p>
+      <p class="about-bio">Engineer turned teacher, building practical AI workflows for the Cambridge classroom.</p>
+      <div class="about-links">
+        <a href="#" class="about-link">
+          <!-- GitHub -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:andres.forero@marymount.edu.co" class="about-link">
+          <!-- Email -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          andres.forero@marymount.edu.co
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <p><strong>Mastering the Loop</strong> &nbsp;·&nbsp; British Council Schools Annual Event 2026 &nbsp;·&nbsp; All prompts free to use and adapt</p>
+</footer>
+
+<!-- ════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════ -->
+<script>
+  /* ── Copy to clipboard ──────────────────────────────────────── */
+  function copyById(btn, id) {
+    const el = document.getElementById(id);
+    copyText(btn, el.textContent.trim());
+  }
+
+  function copyTextarea(btn, id) {
+    const el = document.getElementById(id);
+    copyText(btn, el.value.trim());
+  }
+
+  function copyText(btn, text) {
+    const original = btn.innerHTML;
+
+    const succeed = () => flashCopied(btn, original);
+    const fail    = () => fallbackCopy(text, btn, original);
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(succeed, fail);
+    } else {
+      fallbackCopy(text, btn, original);
+    }
+  }
+
+  function fallbackCopy(text, btn, original) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (_) {}
+    document.body.removeChild(ta);
+    if (ok) flashCopied(btn, original);
+  }
+
+  function flashCopied(btn, original) {
+    btn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      Copied ✓`;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  /* ── Active nav highlighting via IntersectionObserver ────────── */
+  (function () {
+    const links    = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id]');
+
+    // Build a map: section id → nav link
+    const linkMap = {};
+    links.forEach(a => {
+      const id = a.getAttribute('href').replace('#', '');
+      linkMap[id] = a;
+    });
+
+    function setActive(id) {
+      links.forEach(a => a.classList.remove('active'));
+      if (linkMap[id]) linkMap[id].classList.add('active');
+    }
+
+    // rootMargin: top = nav height + 1px, bottom pushes threshold so the
+    // "in-view" section is whichever one dominates the upper viewport area.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {
+      rootMargin: `-${parseInt(getComputedStyle(document.documentElement)
+                      .getPropertyValue('--nav-h')) + 1}px 0px -55% 0px`,
+      threshold: 0
+    });
+
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+</body>
+</html>
